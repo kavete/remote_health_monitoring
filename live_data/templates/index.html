@@ -1,13 +1,33 @@
 {% extends 'layout/base.html' %}
 
-{% block title %} Remote mobitor {% endblock %}
+{% block title %} Remote monitor {% endblock %}
 
 {% block content %}
 
-<div>
-    <h1>Remote Monitor</h1>
-    <p>Welcome to the remote monitor application!</p>
-    <p>Here you can view live data from your devices.</p>
-</div>
+{% include 'partials/nav.html' %}
 
+<div class="container py-4 bg-light min-vh-100">
+  <h1 class="h3 fw-bold text-dark mb-4">ICU Ward Monitoring Dashboard</h1>
+  <div class="row g-4">
+    
+    <div class="col-12 col-lg-6">
+      <div class="card mb-4 shadow-sm h-100">
+        <div class="card-header bg-primary text-white">
+          <h4 class="mb-0">Ward 1</h4>
+        </div>
+        <div class="card-body">
+          <div class="mb-3">
+            <h5 class="fw-semibold text-dark mb-3">Ward Conditions</h5>
+            <ul class="list-group list-group-flush mb-3">
+              <li class="list-group-item">Temperature: <span class="fw-bold"> 25°C</span></li>
+              <li class="list-group-item">Humidity: <span class="fw-bold">87%</span></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 {% endblock %}
+
+{% include "partials/footer.html" %}
