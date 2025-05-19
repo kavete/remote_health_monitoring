@@ -12,17 +12,26 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 
 import os
 from pathlib import Path
-
+import app_secrets
+import environ
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-
+# env = environ.Env(
+#     DEBUG=(bool, False)
+# )
+env = environ.Env()
+environ.Env.read_env()
+# environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
 
+DEBUG = env('DEBUG')
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-umv4)-u)2f24$b9uwv^xc=ymbzs1=lr!)tdh%frza!&g(64rh='
+SECRET_KEY = env('SECRET_KEY')
 
+
+# SECRET_KEY = 'django-insecure-umv4)-u)2f24$b9uwv^xc=ymbzs1=lr!)tdh%frza!&g(64rh='
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
@@ -39,6 +48,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'live_data',
+    # 'django-htmx',
+    # 'tailwind',
+    # 'theme',
 ]
 
 MIDDLEWARE = [
@@ -49,6 +61,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    "django_htmx.middleware.HtmxMiddleware",
 ]
 
 ROOT_URLCONF = 'remote_monitor.urls'
@@ -76,8 +89,13 @@ WSGI_APPLICATION = 'remote_monitor.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': env('DB_NAME'),
+        'USER': env('DB_USER'),
+        'PASSWORD': env('DB_PASSWORD'),
+        'HOST':env('DB_HOST'),
+        'PORT': '5432',
+        
     }
 }
 
@@ -127,3 +145,6 @@ STATICFILES_DIRS = [
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# TAILWIND_APP_NAME = 'theme'  # name of the app you'll create
+# INTERNAL_IPS = ["127.0.0.1"]

@@ -15,9 +15,14 @@ class BedAdmin(admin.ModelAdmin):
 admin.site.register(Bed, BedAdmin)
 
 class PatientAdmin(admin.ModelAdmin):
-    list_display = ('name', 'ward', 'bed', 'age', 'weight', 'height')
+    list_display = ('name', 'ward', 'bed', 'age', 'weight', 'height', 'microcontroller_display')
     search_fields = ('name', 'ward__name')
     list_filter = ('ward', 'age')
+
+    def microcontroller_display(self, obj):
+        mc = obj.microcontroller
+        return mc.identifier if mc else None
+    microcontroller_display.short_description = 'Microcontroller'
 
 admin.site.register(Patient, PatientAdmin)
 

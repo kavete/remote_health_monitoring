@@ -8,7 +8,7 @@ import app_secrets
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'remote_monitor.settings')
 django.setup()
 
-from live_data.models import WardReading 
+from live_data.models import WardReading, Ward, Microcontroller 
 
 # Adafruit IO Credentials
 AIO_USERNAME = app_secrets.AIO_USERNAME
@@ -46,7 +46,20 @@ def on_message(client, userdata, msg):
 
         # Save to DB and CSV if both are present
         if sensor_cache["temperature"] is not None and sensor_cache["humidity"] is not None:
+            # --- BEGIN: Assign correct Ward and Microcontroller ---
+            # Set these identifiers to match your setup
+            MICROCONTROLLER_IDENTIFIER = "Raspberry"  # <-- set this to your actual microcontroller identifier
+            WARD_ID = 1  # <-- set this to your actual ward id (integer)
+            try:
+                micro = Microcontroller.objects.get(identifier=MICROCONTROLLER_IDENTIFIER)
+                ward = Ward.objects.get(id=WARD_ID)
+            except Exception as e:
+                print("Error finding Ward or Microcontroller:", e)
+                return
+            # --- END: Assign correct Ward and Microcontroller ---
             WardReading.objects.create(
+                ward=ward,
+                microcontroller=micro,
                 temperature=sensor_cache["temperature"],
                 humidity=sensor_cache["humidity"]
             )

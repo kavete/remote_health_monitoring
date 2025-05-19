@@ -13,6 +13,11 @@ class Bed(models.Model):
     ward = models.ForeignKey(Ward, on_delete=models.CASCADE, related_name="beds")
     bed_number = models.IntegerField()
 
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(fields=["ward", "bed_number"], name="unique_bed_per_ward")
+        ]
+
     def __str__(self):
         return f"{self.bed_number} in {self.ward}"
 
@@ -33,10 +38,13 @@ class Patient(models.Model):
     age = models.IntegerField()
     weight = models.FloatField(blank=True, null=True)
     height = models.FloatField(blank=True, null=True)
-    # microcontroller = 
-    
-    
 
+
+    @property
+    def microcontroller(self):
+        """Returns the microcontroller assigned to the patient's bed, if any."""
+        return getattr(self.bed, 'microcontroller', None)
+    
     def __str__(self):
         return f"{self.name} Bed: {self.bed.bed_number}"
     
@@ -65,5 +73,4 @@ class PatientVitalReading(models.Model):
         return f"Vitals from {self.microcontroller} at {self.timestamp}"
 
 
-   
-    
+
