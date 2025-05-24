@@ -46,17 +46,16 @@ def on_message(client, userdata, msg):
 
         # Save to DB and CSV if both are present
         if sensor_cache["temperature"] is not None and sensor_cache["humidity"] is not None:
-            # --- BEGIN: Assign correct Ward and Microcontroller ---
-            # Set these identifiers to match your setup
-            MICROCONTROLLER_IDENTIFIER = "Raspberry"  # <-- set this to your actual microcontroller identifier
-            WARD_ID = 1  # <-- set this to your actual ward id (integer)
+           
+            MICROCONTROLLER_IDENTIFIER = "Raspberry" 
+            WARD_ID = 1  
             try:
                 micro = Microcontroller.objects.get(identifier=MICROCONTROLLER_IDENTIFIER)
                 ward = Ward.objects.get(id=WARD_ID)
             except Exception as e:
                 print("Error finding Ward or Microcontroller:", e)
                 return
-            # --- END: Assign correct Ward and Microcontroller ---
+            
             WardReading.objects.create(
                 ward=ward,
                 microcontroller=micro,

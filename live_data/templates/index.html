@@ -5,35 +5,14 @@
 {% block content %}
 
 {% include 'partials/nav.html' %}
+{% load static %}
+{% include "partials/hero.html" %}
+<div class="container mx-auto  m-4 shadow-lg rounded-3xl grid md:grid-cols-2 lg:grid-cols-3 gap-2">
+  
+  
+{% include "partials/ward_readings_partial.html" %}
 
-<div class="container py-4 bg-light min-vh-100">
-  <h1 class="h3 fw-bold text-dark mb-4">ICU Ward Monitoring Dashboard</h1>
-  <div class="row g-4">
-    {% for reading in latest_readings %}
-    <div class="col-12 col-lg-6">
-      <div class="card mb-4 shadow-sm h-100">
-        <div class="card-header bg-primary text-white">
-          <h4 class="mb-0">{{ reading.ward.name }}</h4>
-        </div>
-        <div class="card-body">
-          <div class="mb-3">
-            <h5 class="fw-semibold text-dark mb-3">Ward Conditions</h5>
-            <ul class="list-group list-group-flush mb-3">
-              <li class="list-group-item">Temperature: <span class="fw-bold">{{ reading.temperature }}°C</span></li>
-              <li class="list-group-item">Humidity: <span class="fw-bold">{{ reading.humidity }}%</span></li>
-              <li class="list-group-item text-muted small">Last updated: {{ reading.timestamp|date:'Y-m-d H:i:s' }}</li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </div>
-    {% empty %}
-    <div class="col-12">
-      <div class="alert alert-info">No ward readings available.</div>
-    </div>
-    {% endfor %}
-  </div>
 </div>
-{% endblock %}
 
 {% include "partials/footer.html" %}
+{% endblock %}

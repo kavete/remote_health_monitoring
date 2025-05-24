@@ -71,6 +71,3 @@ class PatientVitalReading(models.Model):
 
     def __str__(self):
         return f"Vitals from {self.microcontroller} at {self.timestamp}"
-
-
-

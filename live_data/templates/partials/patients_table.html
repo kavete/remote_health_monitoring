@@ -1,0 +1,149 @@
+{% load static %}
+<div class="container shadow-2xl m-4 rounded-2xl">
+  <div class="overflow-x-auto">
+    <table class="table">
+      <!-- head -->
+      <thead>
+        <tr>
+          
+          <th>Name</th>
+          <th>Bed </th>
+          <th>Monitor status</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- row 1 -->
+        <tr>
+         
+          <td>
+            <div class="flex items-center gap-3">
+              <div class="avatar">
+                <div class="mask mask-squircle h-12 w-12">
+                  <img
+                    src="{% static "img/heart-with-pulse.png" %}"
+                    alt="Avatar Tailwind CSS Component"
+                  />
+                </div>
+              </div>
+              <div>
+                <div class="font-bold">Hart Hagerty</div>
+                <div class="text-sm opacity-50">Stable</div>
+              </div>
+            </div>
+          </td>
+          <td>
+            Bed 1
+            <br />
+            <span class="badge badge-ghost badge-sm"
+              >Raspberry</span
+            >
+          </td>
+          <td><span class="status status-info animate-ping"></span></td>
+          <th>
+            <button class="btn btn-ghost btn-xs btn-info">details</button>
+          </th>
+        </tr>
+        <!-- row 2 -->
+        <tr>
+         
+          <td>
+            <div class="flex items-center gap-3">
+              <div class="avatar">
+                <div class="mask mask-squircle h-12 w-12">
+                  <img
+                    src="{% static "img/heart-with-pulse.png" %}"
+                    alt="Avatar Tailwind CSS Component"
+                  />
+                </div>
+              </div>
+              <div>
+                <div class="font-bold">Brice Swyre</div>
+                <div class="text-sm opacity-50">Needs attention</div>
+              </div>
+            </div>
+          </td>
+          <td>
+            Bed 2
+            <br />
+            <span class="badge badge-ghost badge-sm">ESP32</span>
+          </td>
+          <td><span class="status status-info animate-ping"></span></td>
+          <th>
+            <button class="btn btn-ghost btn-xs btn-info">details</button>
+          </th>
+        </tr>
+        <!-- row 3 -->
+        <tr>
+         
+          <td>
+            <div class="flex items-center gap-3">
+              <div class="avatar">
+                <div class="masmask-squircle h-12 w-12">
+                  <img
+                    src="{% static "img/heart-with-pulse.png" %}"
+                    alt="Avatar Tailwind CSS Component"
+                  />
+                </div>
+              </div>
+              <div>
+                <div class="font-bold">Marjy Ferencz</div>
+                <div class="text-sm opacity-50">Critical</div>
+              </div>
+            </div>
+          </td>
+          <td>
+            Bed 3
+            <br />
+            <span class="badge badge-ghost badge-sm">STM32</span>
+          </td>
+          <td><span class="status status-info animate-ping"></span></td>
+          <th>
+            <button class="btn btn-ghost btn-xs btn-info">details</button>
+          </th>
+        </tr>
+        <!-- row 4 -->
+        <tr>
+         
+          <td>
+            <div class="flex items-center gap-3">
+              <div class="avatar">
+                <div class="mask mask-squircle h-12 w-12">
+                  <img
+                    src="{% static "img/heart-with-pulse.png" %}"
+                    alt="Avatar Tailwind CSS Component"
+                  />
+                </div>
+              </div>
+              <div>
+                <div class="font-bold">Yancy Tear</div>
+                <div class="text-sm opacity-50">Unknown</div>
+              </div>
+            </div>
+          </td>
+          <td>
+            Bed 4
+            <br />
+            <span class="badge badge-ghost badge-sm"
+              >None</span
+            >
+          </td>
+          <td><span class="status status-lg"></span></td>
+          <th>
+            <button class="btn btn-ghost btn-xs btn-info">details</button>
+          </th>
+        </tr>
+      </tbody>
+      <!-- foot -->
+      <tfoot>
+        <tr>
+        
+          <th>Name</th>
+          <th>Bed</th>
+          <th>Monitor status</th>
+          <th></th>
+        </tr>
+      </tfoot>
+    </table>
+  </div>
+</div>
