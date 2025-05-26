@@ -1,53 +1,23 @@
-{% load static %}
-{% for latest_reading in latest_readings %}
-<div class="card">
+{% for reading in latest_readings %}
+<div class="col-12 col-lg-6">
+  <div class="card mb-4 shadow-sm h-100">
+    <div class="card-header bg-primary text-white">
+      <h4 class="mb-0">{{ reading.ward.name }}</h4>
+    </div>
     <div class="card-body">
-    <h2 class="card-title">{{ latest_reading.ward.name }}</h2>
-    <ul class="list bg-base-100 rounded-box shadow-md">
-  
-    <li class="p-4 pb-2 text-xs opacity-60 tracking-wide">Ward conditions</li>
-  
-  <li class="list-row">
-    <div><img class="size-10 rounded-box" src="{% static "img/heart-with-pulse.png" %}"/></div>
-    <div>
-      <div>Temperature: {{ latest_reading.temperature }}</div>
-      <div class="text-xs uppercase font-semibold opacity-60">Normal</div>
-    </div>
-    <button class="btn btn-square btn-ghost">
-      <svg class="size-[1.2em]" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><g stroke-linejoin="round" stroke-linecap="round" stroke-width="2" fill="none" stroke="currentColor"><path d="M6 3L20 12 6 21 6 3z"></path></g></svg>
-    </button>
-   
-    </li>
-  
-    <li class="list-row">
-    <div><img class="size-10 rounded-box" src="{% static "img/heart-with-pulse.png" %}"/></"/></div>
-    <div>
-      <div>Humidity: {{ latest_reading.humidity }}</div>
-      <div class="text-xs uppercase font-semibold opacity-60">Normal</div>
-    </div>
-    <button class="btn btn-square btn-ghost">
-      <svg class="size-[1.2em]" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><g stroke-linejoin="round" stroke-linecap="round" stroke-width="2" fill="none" stroke="currentColor"><path d="M6 3L20 12 6 21 6 3z"></path></g></svg>
-    </button>
-   
-    </li>
-  
-  <li class="list-row">
-    <div><img class="size-10 rounded-box" src="{% static "img/heart-with-pulse.png" %}"/></"/></div>
-    <div>
-      <div>Noise levels: 45dB</div>
-      <div class="text-xs uppercase font-semibold opacity-60">High</div>
-    </div>
-    <button class="btn btn-square btn-ghost">
-      <svg class="size-[1.2em]" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><g stroke-linejoin="round" stroke-linecap="round" stroke-width="2" fill="none" stroke="currentColor"><path d="M6 3L20 12 6 21 6 3z"></path></g></svg>
-    </button>
-    
-  </li>
-  </ul>
- 
-    <div class="card-actions justify-end">
-      {% comment %} <button class="btn btn-primary">Patients</button> {% endcomment %}
-      <button class="btn btn-info"><a href="{% url "ward_conditions" latest_reading.ward.id %}">Full ward details</a></button>
+      <div class="mb-3">
+        <h5 class="fw-semibold text-dark mb-3">Ward Conditions</h5>
+        <ul class="list-group list-group-flush mb-3">
+          <li class="list-group-item">Temperature: <span class="fw-bold">{{ reading.temperature }}°C</span></li>
+          <li class="list-group-item">Humidity: <span class="fw-bold">{{ reading.humidity }}%</span></li>
+          <li class="list-group-item text-muted small">Last updated: {{ reading.timestamp|date:'Y-m-d H:i:s' }}</li>
+        </ul>
+      </div>
     </div>
   </div>
+</div>
+{% empty %}
+<div class="col-12">
+  <div class="alert alert-info">No ward readings available.</div>
 </div>
 {% endfor %}

@@ -150,3 +150,4 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # TAILWIND_APP_NAME = 'theme'  # name of the app you'll create
 # INTERNAL_IPS = ["127.0.0.1"]
+LOGIN_URL = "/admin/login/"

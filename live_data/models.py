@@ -1,5 +1,5 @@
 from django.db import models
-
+from django.contrib.auth.models import User
 
 class Ward(models.Model):
     name = models.CharField(max_length=100)
@@ -71,3 +71,11 @@ class PatientVitalReading(models.Model):
 
     def __str__(self):
         return f"Vitals from {self.microcontroller} at {self.timestamp}"
+    
+
+# def unique_image_name(request):
+#     pass
+
+# class Doctor(models.Model):
+#     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name="doctor")
+#     profile_image = models.ImageField(upload_to=unique_image_name)

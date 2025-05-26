@@ -14,6 +14,7 @@
       </thead>
       <tbody>
         <!-- row 1 -->
+         {% for patient in patients %}
         <tr>
          
           <td>
@@ -27,7 +28,7 @@
                 </div>
               </div>
               <div>
-                <div class="font-bold">Hart Hagerty</div>
+                <div class="font-bold">{{ patient.name }}</div>
                 <div class="text-sm opacity-50">Stable</div>
               </div>
             </div>
@@ -36,16 +37,21 @@
             Bed 1
             <br />
             <span class="badge badge-ghost badge-sm"
-              >Raspberry</span
+              >{{ patient.microcontroller }}</span
             >
           </td>
+          {% if patient.microcontroller %}
           <td><span class="status status-info animate-ping"></span></td>
+          {% else %}
+          <td><span class="status status-lg"></span></td>
+          {% endif %}
           <th>
             <button class="btn btn-ghost btn-xs btn-info">details</button>
           </th>
         </tr>
+        {% endfor %}
         <!-- row 2 -->
-        <tr>
+        {% comment %} <tr>
          
           <td>
             <div class="flex items-center gap-3">
@@ -72,9 +78,9 @@
           <th>
             <button class="btn btn-ghost btn-xs btn-info">details</button>
           </th>
-        </tr>
+        </tr> {% endcomment %}
         <!-- row 3 -->
-        <tr>
+        {% comment %} <tr>
          
           <td>
             <div class="flex items-center gap-3">
@@ -101,9 +107,9 @@
           <th>
             <button class="btn btn-ghost btn-xs btn-info">details</button>
           </th>
-        </tr>
+        </tr> {% endcomment %}
         <!-- row 4 -->
-        <tr>
+        {% comment %} <tr>
          
           <td>
             <div class="flex items-center gap-3">
@@ -132,7 +138,7 @@
           <th>
             <button class="btn btn-ghost btn-xs btn-info">details</button>
           </th>
-        </tr>
+        </tr> {% endcomment %}
       </tbody>
       <!-- foot -->
       <tfoot>

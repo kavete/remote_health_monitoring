@@ -41,11 +41,18 @@
     <div class="mx-3">
       {% include "partials/theme_controller.html" %}
     </div>
+    {% if request.user.is_authenticated %}
     <div class="avatar avatar-online avatar-placeholder">
      <div class="w-9 rounded-full">
-    <img src="{% static "img/heart-with-pulse.png" %}"></img>
+      
+     
+      <img src="{% static "img/heart-with-pulse.png" %}"></img>
+      
     </div>
     </div>
+    {% else %}
+      <span class="btn btn-link"><a href="{% url "login_url" %}">Login</a></span>
+     {% endif %}
   </div>
 </div>
 </div>
