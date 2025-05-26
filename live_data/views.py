@@ -66,28 +66,28 @@ import time
 from django.http import StreamingHttpResponse
 from live_data.models import WardReading
 
-# def ward_readings_stream(request):
-#     def event_stream():
-#         last_ids = {}
-#         while True:
-#             # Get the latest reading for each ward
-#             latest = (
-#                 WardReading.objects.order_by('ward', '-timestamp')
-#                 .distinct('ward')
-#             )
-#             updates = []
-#             for reading in latest:
-#                 ward_id = reading.ward_id
-#                 if last_ids.get(ward_id) != reading.id:
-#                     last_ids[ward_id] = reading.id
-#                     updates.append(reading)
-#             if updates:
-#                 # Render the partial template for the updated readings
-#                 from django.template.loader import render_to_string
-#                 html = render_to_string('partials/ward_readings_partial.html', {'latest_readings': latest})
-#                 yield f"data: {html}\\n\\n"
-#             time.sleep(2)  # Poll every 2 seconds
+def ward_readings_stream(request):
+    def event_stream():
+        last_ids = {}
+        while True:
+            # Get the latest reading for each ward
+            latest = (
+                WardReading.objects.order_by('ward', '-timestamp')
+                .distinct('ward')
+            )
+            updates = []
+            for reading in latest:
+                ward_id = reading.ward_id
+                if last_ids.get(ward_id) != reading.id:
+                    last_ids[ward_id] = reading.id
+                    updates.append(reading)
+            if updates:
+                # Render the partial template for the updated readings
+                from django.template.loader import render_to_string
+                html = render_to_string('partials/ward_readings_partial.html', {'latest_readings': latest})
+                yield f"data: {html}\\n\\n"
+            time.sleep(2)  # Poll every 2 seconds
 
-#     response = StreamingHttpResponse(event_stream(), content_type='text/event-stream')
-#     response['Cache-Control'] = 'no-cache'
-#     return response
+    response = StreamingHttpResponse(event_stream(), content_type='text/event-stream')
+    response['Cache-Control'] = 'no-cache'
+    return response
