@@ -2,6 +2,9 @@ from django.shortcuts import get_object_or_404, render
 from live_data.models import WardReading, Ward,Bed, Patient
 from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
+import time
+from django.http import StreamingHttpResponse
+from live_data.models import WardReading
 
 # @login_required
 def index(request):
@@ -62,9 +65,7 @@ def login_view(request):
     return render(request, "login.html")
 
 
-import time
-from django.http import StreamingHttpResponse
-from live_data.models import WardReading
+
 
 def ward_readings_stream(request):
     def event_stream():

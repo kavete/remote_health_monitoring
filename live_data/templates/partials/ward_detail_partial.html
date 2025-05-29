@@ -1,0 +1,90 @@
+{% load static %}
+<div class="ward-detail-container">
+    <!-- Ward Environmental Data -->
+    <div class="card bg-base-100 shadow-lg mb-6">
+        <div class="card-body">
+            <h2 class="card-title text-2xl mb-4">{{ ward.name }} - Environmental Conditions</h2>
+            {% if latest_reading %}
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div class="stat bg-primary/10 rounded-lg">
+                    <div class="stat-figure text-primary">
+                        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M15 13V5c0-1.66-1.34-3-3-3S9 3.34 9 5v8c-1.21.91-2 2.37-2 4 0 2.76 2.24 5 5 5s5-2.24 5-5c0-1.63-.79-3.09-2-4z"/></svg>
+                    </div>
+                    <div class="stat-title">Temperature</div>
+                    <div class="stat-value text-primary">{{ latest_reading.temperature }}°C</div>
+                    <div class="stat-desc">{{ latest_reading.timestamp|date:"H:i:s" }}</div>
+                </div>
+                <div class="stat bg-secondary/10 rounded-lg">
+                    <div class="stat-figure text-secondary">
+                        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/></svg>
+                    </div>
+                    <div class="stat-title">Humidity</div>
+                    <div class="stat-value text-secondary">{{ latest_reading.humidity }}%</div>
+                    <div class="stat-desc">{{ latest_reading.timestamp|date:"H:i:s" }}</div>
+                </div>
+                <div class="stat bg-accent/10 rounded-lg">
+                    <div class="stat-figure text-accent">
+                        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+                    </div>
+                    <div class="stat-title">Air Quality</div>
+                    <div class="stat-value text-accent">Good</div>
+                    <div class="stat-desc">{{ latest_reading.timestamp|date:"H:i:s" }}</div>
+                </div>
+            </div>
+            {% else %}
+            <div class="alert alert-warning">
+                <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L3.732 16.5c-.77.833.192 2.5 1.732 2.5z" /></svg>
+                <span>No environmental data available for this ward.</span>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+
+    <!-- Patient Monitoring Section -->
+    <div class="card bg-base-100 shadow-lg mb-6">
+        <div class="card-body">
+            <h3 class="card-title text-xl mb-4">Patient Monitoring</h3>
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 mb-8"
+                 id="patient-vitals-container"
+                 hx-get="{% url 'patient_vitals_partial_ward' ward.id %}"
+                 hx-trigger="load, every 10s"
+                 hx-swap="innerHTML">
+                {% include 'partials/patient_vitals_partial.html' %}
+            </div>
+            <!-- Patient List Table -->
+            <h4 class="text-lg font-semibold mt-6 mb-2">Patients in {{ ward.name }}</h4>
+            <div class="overflow-x-auto">
+                <table class="table table-zebra w-full">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Bed</th>
+                            <th>Age</th>
+                            <th>Monitor Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for patient in patients %}
+                        <tr>
+                            <td>{{ patient.name }}</td>
+                            <td>{{ patient.bed.bed_number }}</td>
+                            <td>{{ patient.age }}</td>
+                            <td>
+                                {% if patient.microcontroller %}
+                                    <span class="badge badge-info">Monitored</span>
+                                {% else %}
+                                    <span class="badge badge-ghost">Not Monitored</span>
+                                {% endif %}
+                            </td>
+                        </tr>
+                        {% empty %}
+                        <tr>
+                            <td colspan="4" class="text-center">No patients in this ward.</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

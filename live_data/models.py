@@ -73,9 +73,3 @@ class PatientVitalReading(models.Model):
         return f"Vitals from {self.microcontroller} at {self.timestamp}"
     
 
-# def unique_image_name(request):
-#     pass
-
-# class Doctor(models.Model):
-#     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name="doctor")
-#     profile_image = models.ImageField(upload_to=unique_image_name)
